@@ -4,9 +4,11 @@ all: lab1
 
 tokenizer.o: tokenizer.h tokenizer.c
 
-main.o: tokenizer.h main.c
+history.o: history.h tokenizer.h history.c
 
-lab1: main.o tokenizer.o
+main.o: tokenizer.h main.c history.h
+
+lab1: main.o tokenizer.o history.o
 	cc -o $@ $^ $(CFLAGS)
 
 clean:
