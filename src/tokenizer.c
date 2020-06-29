@@ -22,7 +22,7 @@ int non_space_char(char c)
     return 1;
 }
 
-char *word_start(char *str);
+char *word_start(char *str)
 {
   while (!(non_space_char(*str)))
     {
@@ -110,5 +110,14 @@ char** tokenize(char* str)
   return tokens;
 }
 
+void print_tokens(char** tokens)
+{
+  int counter = 0;
+  while (*tokens != NULL)
+    {
+      printf("%s\n", *tokens);
+      counter++;
+      tokens++;
+    }
+}
 
-  
