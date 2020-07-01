@@ -115,9 +115,18 @@ void print_tokens(char** tokens)
   int counter = 0;
   while (*tokens != NULL)
     {
-      printf("%s\n", *tokens);
+      printf("token[%d] = '%s'\n",counter, *tokens);
       counter++;
       tokens++;
     }
+  printf("token[%d] = 0", counter);
 }
 
+void free_tokens(char **tokens)
+{
+  for (int i = 0; tokens[i] != 0; i++)
+    {
+      free(tokens[i]);
+    }
+  free(tokens);
+}

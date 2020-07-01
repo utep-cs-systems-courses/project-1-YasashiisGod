@@ -21,6 +21,8 @@ int main ()
       char** tokenizer = tokenize(str);
       print_tokens(tokenizer);
       
-      add_history(strings, str);
+      free_tokens(tokenizer);
+
+      
     }
 }

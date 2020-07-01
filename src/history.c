@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include "history.h"
 #include "tokenizer.h"
+
+#define SEARCH_LIM 10
+
 List* init_history()
 {
   List *history = (List*)malloc(sizeof(List*));
@@ -28,7 +31,7 @@ void add_history(List *list, char *str)
       newNode->str = string_copy;
       newNode->id = 1;
       newNode->next = NULL;
-      list->root = neNode;
+      list->root = newNode;
     }
   else
     {
@@ -38,7 +41,7 @@ void add_history(List *list, char *str)
 	  current = current->next;
 	  ++count;
 	}
-      char *string_copy = copy_str(str, len);
+      char *string_copy = copy_str(str, length);
       current->next = (Item*)malloc(sizeof(Item));
       current->next->id = count;
       current->next->str = string_copy;
@@ -68,7 +71,7 @@ char *get_history(List *list, int id)
     }
 }
 
-void printf_history(List *list)
+void print_history(List *list)
 {
   if (list->root == NULL)
     {
