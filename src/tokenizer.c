@@ -1,3 +1,5 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "tokenizer.h"
@@ -53,19 +55,19 @@ char *word_terminator(char *word)
 
 int count_words(char *str)
 {
-  if ((str!= NULL) && (str[0] =='\0'))
+  if ((str!=NULL) && (str[0] == '\0'))
     {
       return 0;
     }
-    int count = 1;
-    while(*str++)
-      {
-	if (*str == ' ')
-	  {
-	    count++;
-	  }
-      }
-   return count;
+  int count = 1;
+  while(*str++)
+    {
+      if (*str == ' ')
+	{
+	  count++;
+	}
+    }
+  return count;
 }
 
 
@@ -110,17 +112,42 @@ char** tokenize(char* str)
   return tokens;
 }
 
-void print_tokens(char** tokens)
+int count_tokens(char** tokens)
 {
   int counter = 0;
   while (*tokens != NULL)
     {
-      printf("token[%d] = '%s'\n",counter, *tokens);
       counter++;
       tokens++;
     }
-  printf("token[%d] = 0", counter);
+  return counter;
 }
+
+void print_tokens(char** tokens)
+{
+  int end = count_tokens(tokens);
+  int counter = 0;
+
+  printf("Tokens: %d\n", end+1);
+  while (counter < end)
+    {
+      if (counter == (end-1))
+	{
+	  printf("token[%d] = %s", counter, *tokens);
+	  printf("token[%d] = 0\n", counter+1);
+	  counter++;
+	}
+      else
+	{
+	  printf("token[%d] = %s\n",counter, *tokens);
+	  counter++;
+	  tokens++;
+	}
+    }
+  printf("-------------\n");
+}
+
+
 
 void free_tokens(char **tokens)
 {

@@ -3,7 +3,7 @@
 #include "history.h"
 #include "tokenizer.h"
 
-#define SEARCH_LIM 10
+int id_tracker = 1;
 
 List* init_history()
 {
@@ -12,81 +12,51 @@ List* init_history()
   return history;
 }
 
-
-
 void add_history(List *list, char *str)
 {
-  char *temp = str;
-  char *end = word_terminator(temp);
-  char *start = word_start(temp);
+  Item* current;
+  current = list -> root;
   
-  int length = end - start;
-  //printf("This is a test,%d", len);
-  int count = 1;
-
   if (list->root == NULL)
     {
-      char *string_copy = copy_str(str, length);
-      Item *newNode = (Item*)malloc(sizeof(Item));
-      newNode->str = string_copy;
-      newNode->id = 1;
-      newNode->next = NULL;
-      list->root = newNode;
+      list-> root = (Item*)malloc(sizeof(Item));
+      list-> root -> id = id_tracker++;
+      list-> root -> str = str;
+      list-> root-> next = NULL;
     }
   else
     {
-      Item *current = (list->root);
       while (current->next != NULL)
 	{
 	  current = current->next;
-	  ++count;
 	}
-      char *string_copy = copy_str(str, length);
       current->next = (Item*)malloc(sizeof(Item));
-      current->next->id = count;
-      current->next->str = string_copy;
+      current->next->id = id_tracker;
+      current->next->str = str;
       current->next->next = NULL;
     }
 }
 
 char *get_history(List *list, int id)
 {
-  char *history;
-  if (list->root == NULL)
+  Item* current = list->root;
+  while (current != NULL)
     {
-      printf("List is empty there are no strings");
-    }
-  else
-    {
-      Item *current = (list->root);
-      while (current != NULL)
+      if (current->id == id)
 	{
-	  if(current->id == id)
-	    {
-	      history = current->str;
-	      return history;
-	    }
-	  current = current->next;
+	  return current->str;
 	}
+      current = current->next;
     }
 }
 
 void print_history(List *list)
 {
-  if (list->root == NULL)
+  Item *current = list->root;
+  while(current != NULL)
     {
-      printf("No history\n");
-    }
-  else
-    {
-      Item *current = (list->root);
-      while (current != NULL)
-	{
-	  printf("History %d: ", current->id);
-	  printf("%s\n ", current->str);
-	  current = current->next;
-	}
-    }
+      printf("%d.- %s", current->id, current->str);
+      current = current->next;
 }
 
 void free_history(List *list)
