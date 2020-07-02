@@ -57,24 +57,20 @@ void print_history(List *list)
     {
       printf("%d.- %s", current->id, current->str);
       current = current->next;
+    }
 }
 
 void free_history(List *list)
 {
-  Item *current;
-  Item *next;
-  current = (list -> root);
-
+  Item *current = list->root;
   while (current != NULL)
     {
-      next = current->next;
-      free(current->str);
       free(current);
-      current = next;
+      current = current->next;
     }
   free(list);
 }
-
+/*
 int get_input()
 {
   int user_input = 0;
@@ -183,3 +179,4 @@ void history_UI(List *list, char *str)
 	}
     }
 }
+*/
