@@ -51,11 +51,12 @@ int main ()
       */
       
       add_history(list, str);
-
+      print_history(list);
+      
       free_tokens(tokenizer);
       free_history(list);
       id_tracker++;
-      get_history(list,1);
+      
       
     }
 }
